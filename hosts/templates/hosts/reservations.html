@@ -1,0 +1,33 @@
+<br>
+    <table style="border: 1px solid black; border-collapse: collapse;">
+        <tr>
+            <th colspan="8" style="text-align: center;">RESERVATIONS</th>
+     
+          </tr>
+        <tr>
+          <th style="border: 1px solid black;border-collapse: collapse;">Id</th>
+          <th style="border: 1px solid black;border-collapse: collapse;">Reservation</th>
+          <th style="border: 1px solid black;border-collapse: collapse;">Checkin</th>
+          <th style="border: 1px solid black;border-collapse: collapse;">Checkout</th>
+          <th style="border: 1px solid black;border-collapse: collapse;">Flat</th>
+          <th style="border: 1px solid black;border-collapse: collapse;">City</th>
+          <th style="border: 1px solid black;border-collapse: collapse;">Net income</th>
+          <th style="border: 1px solid black;border-collapse: collapse;">Commission</th>
+        </tr>
+        {% for reservation in reservations %}
+        <tr style="border: 1px solid black;border-collapse: collapse;">
+            
+            <td style="border: 1px solid black;">{{reservation.id}}</td>
+            <td style="border: 1px solid black;">{{reservation.reservation}}</td>
+            <td style="border: 1px solid black;">{{reservation.checkin}}</td>
+            <td style="border: 1px solid black;">{{reservation.checkout}}</th>
+            <td style="border: 1px solid black;">{{reservation.flat}}</th>
+            <td style="border: 1px solid black;">{{reservation.city}}</th>
+            <td style="border: 1px solid black;">{{reservation.income}}</th>
+            <td style="border: 1px solid black;">{{reservation.commission}}</th>
+
+                {% endfor %}
+        </tr>
+      </table>
+    <br>
+

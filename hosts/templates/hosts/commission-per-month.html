@@ -1,0 +1,18 @@
+
+<br>
+    <table style="border: 1px solid black; border-collapse: collapse;">
+        <tr>
+            <th colspan="8" style="text-align: center;">COMMISSIONS</th>
+          </tr>
+        <tr>
+          <th style="border: 1px solid black;border-collapse: collapse;">Year/Month</th>
+          <th style="border: 1px solid black;border-collapse: collapse;">Commission</th>
+        </tr>
+        {% for key,value in commissions.items%}
+        <tr style="border: 1px solid black;border-collapse: collapse;">
+            <td style="border: 1px solid black;">{{key}}</th>
+            <td style="border: 1px solid black;">{{value}}</th>
+        {% endfor %}
+        </tr>
+      </table>
+    <br>
