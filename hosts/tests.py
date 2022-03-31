@@ -15,3 +15,11 @@ class UnitTestCase(TestCase):
 		ReservationModel.objects.create(reservation='HH001', checkin='2020-10-10', 
 			                            city='CLUJ', checkout= '2020-10-15', flat= "Jamal", income=Decimal(1000))
 		self.assertEqual(ReservationModel.objects.filter(city="CLUJ").first().commission, Decimal(100))
+		
+	def test_cityform_no_data(self):
+		form = CityModelForm(data = {})
+		self.assertFalse(form.is_valid())
+
+	def test_cityform_with_data(self):
+		form = CityModelForm(data = {'city':'CLUJ', 'commission_percent': 0.1})
+		self.assertTrue(form.is_valid())
