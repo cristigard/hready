@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 class CreateCityView(CreateView):
     model = CityModel
     template_name = 'hosts/city.html'
-    fields = ['city','commission_percent']
+    form_class = CityModelForm
     success_url = reverse_lazy('list-cities')
 
 
