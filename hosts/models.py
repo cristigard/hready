@@ -35,7 +35,7 @@ class ReservationModel(models.Model):
     flat = models.CharField(max_length = 25)
     city = models.CharField(max_length = 25, validators = [city_validation])
     income = models.DecimalField(max_digits=7, decimal_places=2)
-    commission = models.DecimalField(max_digits=5, decimal_places=2)
+    commission = models.DecimalField(max_digits=6, decimal_places=2)
 
     def __str__(self):
         return f'{self.reservation}'
