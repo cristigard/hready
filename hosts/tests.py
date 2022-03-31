@@ -19,6 +19,7 @@ class UnitTestCase(TestCase):
 	def test_cityform_no_data(self):
 		form = CityModelForm(data = {})
 		self.assertFalse(form.is_valid())
+		self.assertEquals(len(form.errors),2)
 
 	def test_cityform_with_data(self):
 		form = CityModelForm(data = {'city':'CLUJ', 'commission_percent': 0.1})
