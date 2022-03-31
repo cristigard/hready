@@ -3,6 +3,11 @@ from .models import ReservationModel, CityModel
 from django.core.exceptions import ValidationError
 
 
+class CityModelForm(forms.ModelForm):
+    class Meta:
+        model = CityModel
+        fields = ['city', 'commission_percent']
+
 
 class ReservationModelForm(forms.ModelForm):
     class Meta:
