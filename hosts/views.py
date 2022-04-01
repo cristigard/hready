@@ -96,7 +96,6 @@ def upload_view(request):
                 flat = element[3]#get flat from dataset
                 income = float(element[5])#get income from dataset
                 city = element[4].upper()#get city from dataset
-                City.objects.filter(name=city).first() #instanta
                 data = {'number':number, 'checkin':checkin, 'city':city,
                         'checkout': checkout, 'flat': flat, 'income':income }
                 register_form = ReservationForm(data)
