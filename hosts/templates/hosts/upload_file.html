@@ -1,7 +1,7 @@
 <h4>Upload file</h4>
 <form enctype="multipart/form-data" method="post">
     {%csrf_token%}
-    {{form.as_p}}
+    {{upload_form.as_p}}
     <input type="Submit" value="Upload">
 </form>
 {% if errors %}
