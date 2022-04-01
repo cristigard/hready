@@ -5,42 +5,38 @@ from decimal import Decimal
 
 
 
-class CityModel(models.Model):
-    city = models.CharField(max_length = 25, unique=True)
-    commission_percent = models.DecimalField(default=0, max_digits=3, decimal_places=2,
+class City(models.Model):
+    name = models.CharField(max_length = 25, unique=True)
+    rate = models.DecimalField(default=0, max_digits=3, decimal_places=2,
                                         validators=[MinValueValidator(Decimal('0.01'))])
 
     def __str__(self):
-        return f'{self.city}'
+        return f'{self.name}'
 
     def save(self, *args, **kwargs):
-        self.city = self.city.upper()
+        self.name = self.name.upper()
         super().save(*args, **kwargs)
-    
-
-def city_validation(city):
-    cities = [city.city for city in CityModel.objects.all()]
-    if city not in cities:
-        raise ValidationError(f"City {city} does not exists in DB! Please add it first and try again.")
-
-def reservation_validation(reservation):
-    if ReservationModel.objects.filter(reservation=reservation).exists():
-        raise ValidationError(f"Reservation {reservation} arleady exists in DB!")
 
 
-class ReservationModel(models.Model):
-    reservation = models.CharField(max_length = 25, unique = True, validators = [reservation_validation])
+def reservation_number_validation(number):
+    if Reservation.objects.filter(number=number).exists():
+        raise ValidationError(f"Reservation number {number} arleady uploaded!")
+
+
+class Reservation(models.Model):
+    number = models.CharField(max_length = 25, unique = True, validators = [reservation_number_validation])
     checkin = models.DateField()
     checkout = models.DateField()
     flat = models.CharField(max_length = 25)
-    city = models.CharField(max_length = 25, validators = [city_validation])
+    city = models.ForeignKey(City, on_delete = models.CASCADE)
     income = models.DecimalField(max_digits=7, decimal_places=2)
-    commission = models.DecimalField(max_digits=6, decimal_places=2)
+    commission = models.DecimalField(default = 0, max_digits=6, decimal_places=2)
 
     def __str__(self):
-        return f'{self.reservation}'
+        return f'{self.number}'
 
     def save(self, *args, **kwargs):
-        cities = {city.city:city.commission_percent for city in CityModel.objects.all()}
-        self.commission = self.income * cities[self.city]
+        cities = {city.name:city.rate for city in City.objects.all()}
+        self.commission = self.income * cities[self.city.name]  
         super().save(*args, **kwargs)
+    
