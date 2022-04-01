@@ -1,18 +1,26 @@
 from django import forms
-from .models import ReservationModel, CityModel
+from .models import Reservation, City
 from django.core.exceptions import ValidationError
 
 
-class CityModelForm(forms.ModelForm):
+
+class CityForm(forms.ModelForm):
     class Meta:
-        model = CityModel
-        fields = ['city', 'commission_percent']
+        model = City
+        fields = ['name', 'rate']
 
 
-class ReservationModelForm(forms.ModelForm):
+class ReservationForm(forms.ModelForm):
+    city = forms.CharField() #if not set, when register_form.save() will trow an error becasue look for City instance
     class Meta:
-        model = ReservationModel
-        fields = ['reservation','checkin','checkout','flat','city','income']
+        model = Reservation
+        fields = ['number','checkin','checkout','flat','city','income']
+
+    def clean_city(self):
+        city = self.cleaned_data.get("city")
+        if not City.objects.filter(name=city).first():
+            raise ValidationError(f"City {city} not in DB. Add city first and try again! ")   
+        return City.objects.filter(name=city).first()
 
 
 class UploadFileForm(forms.Form):
